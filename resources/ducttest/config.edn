@@ -1,0 +1,19 @@
+{:duct.core/project-ns     ducttest
+ :duct.core/environment    :production
+
+ :duct.module/logging      {}
+ :duct.module.web/site     {}
+
+ :ducttest.handler/main-db {
+                            :uri "datomic:dev://localhost:4334/testdb"
+                            :schema "migration_schema.edn"
+                            :data "migration_data.edn"
+                            :log  #ig/ref :duct.logger/timbre
+                            }
+
+ :duct.module/ataraxy
+                           {[:get "/example"] [:example]}
+
+ :ducttest.handler/example {
+                            :db-conn #ig/ref :ducttest.handler/main-db
+                            }}
